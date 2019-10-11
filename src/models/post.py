@@ -2,43 +2,39 @@ __author__ = 'chansen'
 
 import datetime
 import uuid
-from database import Database
+from src.common.database import Database
 
 
 class Post(object):
 
-    def __init__(self, blog_id, title, content, author, date=datetime.datetime.utcnow(), id=None):
+    def __init__(self, blog_id, title, content, author, created_date=datetime.datetime.utcnow(), _id=None):
         self.blog_id = blog_id
         self.title = title
         self.content = content
         self.author = author
-        self.created_date = date
-        self.id = uuid.uuid4().hex if id is None else id
+        self.created_date = created_date
+        self._id = uuid.uuid4().hex if _id is None else _id
 
     def save_to_mongo(self):
-        Database.insert(collection='posts', data=self.json())
+        Database.insert(collection='posts',
+                        data=self.json())
 
     def json(self):
         return {
+            '_id': self._id,
             'blog_id': self.blog_id,
             'title': self.title,
             'content': self.content,
             'author': self.author,
-            'date': self.created_date,
-            'id': self.id,
+            'created_date': self.created_date
         }
 
     @classmethod
-    def from_mongo(cls, id):
+    def from_mongo(cls, _id):
         # Post.from_mongo('123')
-        post_data = Database.find_one(collection='posts', query={'id': id})
-        return cls(blog_id=post_data['blog_id'],
-                   title=post_data['title'],
-                   content=post_data['content'],
-                   author=post_data['author'],
-                   date=post_data['date'],
-                   id=post_data['id'])
+        post_data = Database.find_one(collection='posts', query={'_id': _id})
+        return cls(**post_data)
 
     @staticmethod
-    def from_blog(id):
-        return [post for post in Database.find(collection='posts', query={'blog_id': id})]
+    def from_blog(_id):
+        return [post for post in Database.find(collection='posts', query={'blog_id': _id})]

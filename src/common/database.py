@@ -27,7 +27,6 @@ class Database(object):
 
     @staticmethod
     def delete_one(collection, query):
-        print(Database.DATABASE[collection])
         return Database.DATABASE[collection].delete_one(query)
 
     @staticmethod
