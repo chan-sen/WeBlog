@@ -1,4 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-
+    <h1 class="title">Welcome to WeBlog!</h1>
+    <form id="register-form" action="/auth/register" method="post" class="login-form">
+        <h3>Register</h3>
+        <h4>
+            Email:
+            <br>
+            <input type="text" id="email" name="email">
+        </h4>
+        <h4>
+            Password:
+            <br>
+            <input type="password" id="password" name="password">
+        </h4>
+        <input type="submit" id="submit-button">
+    </form>
 {% endblock %}
