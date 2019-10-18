@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Hello {{ email }}</h1>
+    <h2>Here are your blogs:</h2>
+    {% for blog in blogs %}
+        <li>
+            <h3>{{ blog.title }}</h3>
+            <p>"{{ blog.description }}"</p>
+            <br>
+            <p>By: {{ blog.author }}</p>
+        </li>
+    {% endfor %}
+{% endblock %}

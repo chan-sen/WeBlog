@@ -19,6 +19,10 @@ class Post(object):
         Database.insert(collection='posts',
                         data=self.json())
 
+    def delete_from_mongo(self):
+        Database.delete_one(collection='posts',
+                            data=self.json())
+
     def json(self):
         return {
             '_id': self._id,

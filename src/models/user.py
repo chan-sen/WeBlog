@@ -1,5 +1,10 @@
+import datetime
 import uuid
+
+from flask import session
+
 from src.common.database import Database
+from src.models.blog import Blog
 
 __author__ = 'chansen'
 
@@ -47,7 +52,7 @@ class User(object):
         user = User.get_by_email(email)
         if user is not None:
             # Check the password
-            return user['password'] == password
+            return user.password == password
         return False
 
     @classmethod
@@ -64,16 +69,38 @@ class User(object):
             # User doesn't exist so we can create it
             new_user = cls(email, password)
             new_user.save_to_mongo()
+            session['email'] = email
             return True
         else:
             # User exists
             return False
 
-    def login(self):
-        pass
+    @staticmethod
+    def login(user_email):
+        # login_valid has already been called
+        session['email'] = user_email
 
-    def get_blogs(self):
-        pass
+    @staticmethod
+    def logout():
+        session['email'] = None
+
+    def new_blog(self, title, description):
+        # from session: author, author_id
+        # from website: title, description
+        blog = Blog(author=self.email,
+                    author_id=self._id,
+                    title=title,
+                    description=description)
+        blog.save_to_mongo()
+
+    @staticmethod
+    def new_post(blog_id, title, content, date=datetime.datetime.utcnow()):
+        # from website: blog_id, title, content
+        # default:      date or set on website
+        blog = Blog.from_mongo(blog_id)
+        blog.new_post(title=title,
+                      content=content,
+                      date=date)
 
     def json(self):
         return {
@@ -83,6 +110,5 @@ class User(object):
         }
 
     def save_to_mongo(self):
-        Database.insert(collection='users',
-                        data=self.json())
+        Database.insert('users', self.json())
 
