@@ -3,7 +3,10 @@ from src.models.user import User
 
 __author__ = 'chansen'
 
-from flask import Flask, render_template, request, session
+from flask import (Flask,
+                   render_template,
+                   request, session,
+                   redirect, url_for)
 
 app = Flask(__name__)
 app.secret_key = 'ggg'
@@ -14,12 +17,12 @@ def home_template():
     return render_template('home.html')
 
 
-@app.route('/login')                     # https://www.mysite.com/api/
+@app.route('/login')                    # https://www.mysite.com/api/
 def login_template():
     return render_template('login.html')
 
 
-@app.route('/register')                     # https://www.mysite.com/api/
+@app.route('/register')                 # https://www.mysite.com/api/
 def register_template():
     return render_template('register.html')
 
@@ -40,7 +43,7 @@ def login_user():
         User.login(email)
         return render_template("profile.html", email=session['email'])
     else:
-        return register_template()
+        return redirect(url_for('login_template'))
 
 
 @app.route('/auth/register', methods=['POST'])
@@ -52,6 +55,13 @@ def register_new_user():
 
     User.register(email, password)
     return render_template("profile.html", email=session['email'])
+
+
+@app.route('/blogs/<string:user_id>')
+def user_blogs(user_id):
+    user = User.get_by_id(user_id)
+    # blogs = user.
+
 
 
 """
