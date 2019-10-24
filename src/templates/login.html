@@ -3,21 +3,32 @@
         send input to /login on submit
 
             --->
+
+
 {% extends "base.html" %}
 {% block content %}
+<div class="container login-page-form">
     <h1 class="title">Welcome to WeBlog!</h1>
-    <form id="login-form" action="/auth/login" method="post" class="login-form">
+    <form id="login-form" action="/auth/login" method="post">
         <h3>Login</h3>
-        <h4>
-            Email:
-            <br>
-            <input type="text" id="email" name="email">
-        </h4>
-        <h4>
-            Password:
-            <br>
-            <input type="password" id="password" name="password">
-        </h4>
-        <input type="submit" id="submit-button">
+        <div class="form-group">
+            <label for="loginInputEmail">Email:</label>
+            <input type="text" id="loginInputEmail" name="email" class="form-control" placeholder="Email">
+            <small id="emailHelp" class="form-text text-muted">Corey is the only person who will know your information.</small>
+        </div>
+        <div class="form-group">
+            <label for="loginInputPassword">Password:</label>
+            <input type="password" id="loginInputPassword" name="password" class="form-control" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="http://127.0.0.1:5000/register" class="btn btn-outline-success" role="button">Register</a>
+
+            <input type="submit" id="register-button" value="Register"
+                   class="btn btn-outline-success"
+                   formmethod="get"
+                   formaction="/register"/>
+        </div>
     </form>
+</div>
 {% endblock %}
