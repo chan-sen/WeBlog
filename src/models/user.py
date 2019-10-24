@@ -85,7 +85,7 @@ class User(object):
         session['email'] = None
 
     def get_blogs(self):
-        blogs = Blog.from_mongo(self._id)
+        return Blog.find_by_author_id(self._id)
 
     def new_blog(self, title, description):
         # from session: author, author_id
