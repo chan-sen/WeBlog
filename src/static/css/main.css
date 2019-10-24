@@ -2,9 +2,41 @@
     text-align: center;
 }
 
-.login-form {
-    margin: auto;
-    width: 60%;
+#login-form {
+    margin-top: 25px;
+}
+
+.login-page-form {
+    max-width: 400px;
     padding: 10px;
     border: 3px solid #73AD21;
+}
+
+.register-page-form {
+    margin: auto;
+    max-width: 400px;
+    padding: 10px;
+    border: 3px solid #73AD21
+}
+
+.homepage-form {
+    margin: auto;
+    max-width: 400px;
+    padding: 10px;
+    border: 3px solid #73AD21
+}
+
+home-login-register {
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+    border: 3px solid #73AD21;
+}
+
+login-button {
+    margin: auto;
+}
+
+register-button {
+    margin: auto;
 }
