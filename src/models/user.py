@@ -84,6 +84,9 @@ class User(object):
     def logout():
         session['email'] = None
 
+    def get_blogs(self):
+        blogs = Blog.from_mongo(self._id)
+
     def new_blog(self, title, description):
         # from session: author, author_id
         # from website: title, description
