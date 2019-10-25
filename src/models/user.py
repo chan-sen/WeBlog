@@ -10,10 +10,23 @@ __author__ = 'chansen'
 
 
 class User(object):
-    def __init__(self, email, password, _id=None):
+    def __init__(self, username, email, password, _id=None):
+        self.username = username
         self.email = email
         self.password = password
         self._id = uuid.uuid4().hex if _id is None else _id
+
+    @classmethod
+    def get_by_username(cls, username):
+        """
+            Search database for account attached to given username
+
+        :param username:    username to search by
+        :return:            User Object instance w/ data attached to username
+        """
+        data = Database.find_one('users', {'username': username})
+        if data is not None:
+            return cls(**data)
 
     @classmethod
     def get_by_email(cls, email):
@@ -40,7 +53,23 @@ class User(object):
             return cls(**data)
 
     @staticmethod
-    def login_valid(email, password):
+    def login_valid(username, password):
+        """
+            Check password matches User account attached to email given
+
+
+            :param username:    email to create account with
+            :param password:    password to verify
+            :return:            True/False if email and password are confirmed
+        """
+        user = User.get_by_username(username)
+        if user is not None:
+            # Check the password
+            return user.password == password
+        return False
+
+    @staticmethod
+    def login_email_valid(email, password):
         """
             Check password matches User account attached to email given
 
@@ -56,10 +85,11 @@ class User(object):
         return False
 
     @classmethod
-    def register(cls, email, password):
+    def register_valid(cls, username, email, password):
         """
             Create new user if one doesn't exist for given email
 
+            :param username:    username for account
             :param email:       email to create account with
             :param password:    password for new account
             :return:            True/False if user doesn't exist
@@ -67,7 +97,7 @@ class User(object):
         user = cls.get_by_email(email)
         if user is None:
             # User doesn't exist so we can create it
-            new_user = cls(email, password)
+            new_user = cls(username, email, password)
             new_user.save_to_mongo()
             session['email'] = email
             return True
@@ -107,6 +137,7 @@ class User(object):
 
     def json(self):
         return {
+            'username': self.username,
             'email': self.email,
             'password': self.password,
             '_id': self._id
