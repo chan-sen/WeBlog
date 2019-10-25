@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <hr>
+    <h2>Posts on {{ blog_title }}</h2>
+    <hr>
+    {% if posts|length > 0 %}
+        {% for post in posts %}
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+            <small>By: {{ post.author }}</small>
+            <small>Date: {{ post.created_date }}</small>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h4>No posts currently under this blog. Good day to you.</h4>
+    {% endif %}
+</div>
+{% endblock %}

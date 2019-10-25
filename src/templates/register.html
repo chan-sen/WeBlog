@@ -5,14 +5,17 @@
     <form id="register-form" action="/auth/register" method="post" class="login-form">
         <h3>Register</h3>
         <div class="form-group">
-            <label for="registerInputEmail">Email:</label>
-            <input type="text" id="registerInputEmail" name="email" class="form-control" placeholder="Email">
-            <small id="emailHelp" class="form-text text-muted">Corey is the only person who will know your information.</small>
+            <!-- <label for="registerInputUsername">Username:</label> -->
+            <input type="text" id="registerInputUsername" name="username" class="form-control" placeholder="Username">
         </div>
         <div class="form-group">
-            <label for="registerInputPassword">Password:
-            </label>
+            <!-- <label for="registerInputEmail">Email:</label> -->
+            <input type="text" id="registerInputEmail" name="email" class="form-control" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <!-- <label for="registerInputPassword">Password:</label> -->
             <input type="password" id="registerInputPassword" name="password" class="form-control" placeholder="Password">
+            <small id="emailHelp" class="form-text text-muted">Corey is the only person who will know your information.</small>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-success">Register</button>
