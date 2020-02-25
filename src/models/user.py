@@ -3,8 +3,8 @@ import uuid
 
 from flask import session
 
-from src.common.database import Database
-from src.models.blog import Blog
+from common.database import Database
+from models.blog import Blog
 
 __author__ = 'chansen'
 
@@ -63,6 +63,7 @@ class User(object):
             :return:            True/False if email and password are confirmed
         """
         user = User.get_by_username(username)
+        print(user)
         if user is not None:
             # Check the password
             return user.password == password
@@ -120,7 +121,7 @@ class User(object):
     def new_blog(self, title, description):
         # from session: author, author_id
         # from website: title, description
-        blog = Blog(author=self.email,
+        blog = Blog(author=self.username,
                     author_id=self._id,
                     title=title,
                     description=description)

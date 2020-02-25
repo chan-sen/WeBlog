@@ -1,20 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <h1>Hello {{ email }}</h1>
-    <div>
-        Would you like to create a new blog?
+
+    <div class="container user-profile-group">
+
+        {% include 'new_blog.html' %}
+
+        {% include 'user_blogs.html' %}
 
     </div>
-    <h2>Here are your blogs:</h2>
-    {% for blog in blogs %}
-        <li>
-            <h3>{{ blog.title }}</h3>
-            <p>"{{ blog.description }}"</p>
-            <br>
-            <p>By: {{ blog.author }}</p>
-        </li>
-        <hr>
-    {% endfor %}
-</div>
-{% endblock %}
+{% endblock content %}

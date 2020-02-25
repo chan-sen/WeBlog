@@ -1,11 +1,20 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="container">
-    <h2>{{ email }}'s blogs</h2>
-    {% for blog in blogs %}
-        <h3><a href="/posts/{{ blog._id }}">{{ blog.title }}</a></h3>
-        <p>{{ blog.description }}</p>
-        <hr>
-    {% endfor %}
+<div class="container blogs-page-group">
+    <h2>Here are your blogs:</h2>
+    <div class="container blogs-group" style="display: flex; flex-flow: row-reverse wrap-reverse">
+            {% for blog in blogs %}
+                <li class="list-group-item" style="width: 300px;">
+                    <div class="card blog-card" style="width: 100%;">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <div class="card-body" style="">
+                            <h3 class="card-title">{{ blog.title }}</h3>
+                            <p class="card-text">{{ blog.description }}</p>
+                            <br>
+                            <p class="card-text">By: {{ blog.author }}</p>
+                            <a href="/{{ blog.author }}/blog/{{ blog._id }}" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </li>
+                <hr>
+            {% endfor %}
+    </div>
 </div>
-{% endblock %}

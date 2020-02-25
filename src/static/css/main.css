@@ -6,6 +6,20 @@
     margin-top: 25px;
 }
 
+.navbar {
+    justify-content: space-around;
+}
+
+.body-group {
+    display: flex;
+    max-width: 800px;
+    flex-flow: wrap;
+}
+
+.title-entry {
+    max-width: 400px;
+}
+
 .login-page-form {
     max-width: 400px;
     padding: 10px;
@@ -40,3 +54,4 @@ login-button {
 register-button {
     margin: auto;
 }
+

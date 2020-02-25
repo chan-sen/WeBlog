@@ -3,8 +3,8 @@ __author__ = 'chansen'
 import datetime
 import uuid
 
-from src.common.database import Database
-from src.models.post import Post
+from common.database import Database
+from models.post import Post
 
 
 class Blog(object):

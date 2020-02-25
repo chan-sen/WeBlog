@@ -1,0 +1,17 @@
+<h2>Would you like to post something to {{ blog_title }}?</h2>
+<div class="container new-post-group">
+    <form id="new-post" action="{{ blog_id }}/post/new" method="post" class="new-blog-form">
+        <h3>New Post:</h3>
+        <div class="form-group title-entry">
+            <label for="newPostTitle">Title:</label>
+            <input type="text" id="newPostTitle" name="title" class="form-control" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <label for="newPostContent">Content:</label>
+            <input type="text" id="newPostContent" name="content" class="form-control" placeholder="Content">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Post</button>
+        </div>
+    </form>
+</div>
