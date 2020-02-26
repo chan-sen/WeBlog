@@ -14,12 +14,9 @@ app.secret_key = 'ggg'
 
 @app.route('/')
 def home_template():
-    print(session['email'])
     if 'email' not in session or session['email'] is None:
-        print('no email')
         return render_template('home.html')
     else:
-        # print("redirect... session[]:" + session['email'])
         return redirect(url_for('user_profile'))
 
 
@@ -48,7 +45,6 @@ def logout():
 @app.before_first_request
 def initialize_database():
     Database.initialize()
-    print("", Database)
 
 
 @app.route('/auth/login', methods=['POST'])
@@ -75,7 +71,6 @@ def register_new_user():
 
     if User.register_valid(username, email, password):
         User.login(email)
-        print("user logged in")
         return redirect(url_for('user_blogs'))
     else:
         return redirect(url_for('register_template'))
@@ -129,22 +124,18 @@ def blog_posts(author, blog_id):
 
 @app.route('/<string:author>/blog/<string:blog_id>/post/new', methods=['POST', 'GET'])
 def new_post_on_blog(author, blog_id):
-    print(author)
     if session['email']:
         if request.method == 'GET':
-            print("GET")
             return render_template('new_post.html')
         else:
             title = request.form['title']
             content = request.form['content']
             blog = Blog.from_mongo(blog_id)
             blog.new_post(title, content)
-            print('POST')
             return redirect(url_for('blog_posts',
                                     author=author,
                                     blog_id=blog_id))
     else:
-        print("NO SESSION")
         return redirect(url_for('login_template'))
 
 

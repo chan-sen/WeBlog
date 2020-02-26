@@ -20,6 +20,14 @@
     max-width: 400px;
 }
 
+.homepage-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
 .login-page-form {
     max-width: 400px;
     padding: 10px;
